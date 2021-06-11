@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", function(event) {
     let table = document.getElementById("table-items")
     if(table.rows.length < 2 ) {
