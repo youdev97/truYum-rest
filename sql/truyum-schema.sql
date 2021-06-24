@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema truyum
+-- Schema lch_marketplace
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `truyum` ;
+DROP SCHEMA IF EXISTS `lch_marketplace` ;
 
 -- -----------------------------------------------------
--- Schema truyum
+-- Schema lch_marketplace
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `truyum` DEFAULT CHARACTER SET utf8 ;
-USE `truyum` ;
+CREATE SCHEMA IF NOT EXISTS `lch_marketplace` DEFAULT CHARACTER SET utf8 ;
+USE `lch_marketplace` ;
 
 -- -----------------------------------------------------
--- Table `truyum`.`menu_item`
+-- Table `lch_marketplace`.`menu_item`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `truyum`.`menu_item` ;
+DROP TABLE IF EXISTS `lch_marketplace`.`menu_item` ;
 
-CREATE TABLE IF NOT EXISTS `truyum`.`menu_item` (
+CREATE TABLE IF NOT EXISTS `lch_marketplace`.`menu_item` (
   `me_id` INT NOT NULL AUTO_INCREMENT,
   `me_name` VARCHAR(100) NULL,
   `me_price` DECIMAL(8,2) NULL,
@@ -36,47 +36,46 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `truyum`.`user`
+-- Table `lch_marketplace`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `truyum`.`user` ;
+DROP TABLE IF EXISTS `lch_marketplace`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `truyum`.`user` (
+CREATE TABLE IF NOT EXISTS `lch_marketplace`.`user` (
   `us_id` INT NOT NULL,
   `us_name` VARCHAR(60) NULL,
-  `usercol` VARCHAR(45) NULL,
   PRIMARY KEY (`us_id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `truyum`.`cart`
+-- Table `lch_marketplace`.`cart`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `truyum`.`cart` ;
+DROP TABLE IF EXISTS `lch_marketplace`.`cart` ;
 
-CREATE TABLE IF NOT EXISTS `truyum`.`cart` (
-  `cart_id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `lch_marketplace`.`cart` (
+  `cart_id` INT NOT NULL AUTO_INCREMENT,
   `ct_us_id` INT NULL,
   `ct_pr_id` INT NULL,
   PRIMARY KEY (`cart_id`),
   CONSTRAINT `fk_cart_menu_item1`
     FOREIGN KEY (`ct_us_id`)
-    REFERENCES `truyum`.`menu_item` (`me_id`)
+    REFERENCES `lch_marketplace`.`menu_item` (`me_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cart_user1`
     FOREIGN KEY (`ct_pr_id`)
-    REFERENCES `truyum`.`user` (`us_id`)
+    REFERENCES `lch_marketplace`.`user` (`us_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `truyum`.`role`
+-- Table `lch_marketplace`.`role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `truyum`.`role` ;
+DROP TABLE IF EXISTS `lch_marketplace`.`role` ;
 
-CREATE TABLE IF NOT EXISTS `truyum`.`role` (
+CREATE TABLE IF NOT EXISTS `lch_marketplace`.`role` (
   `ro_id` INT NOT NULL,
   `ro_name` VARCHAR(45) NULL,
   PRIMARY KEY (`ro_id`))
@@ -84,23 +83,23 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `truyum`.`user_role`
+-- Table `lch_marketplace`.`user_role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `truyum`.`user_role` ;
+DROP TABLE IF EXISTS `lch_marketplace`.`user_role` ;
 
-CREATE TABLE IF NOT EXISTS `truyum`.`user_role` (
+CREATE TABLE IF NOT EXISTS `lch_marketplace`.`user_role` (
   `ur_role_id` VARCHAR(45) NOT NULL,
   `ur_us_id` INT NULL,
   `ur_ro_id` INT NULL,
   PRIMARY KEY (`ur_role_id`),
   CONSTRAINT `fk_user_has_role_user1`
     FOREIGN KEY (`ur_us_id`)
-    REFERENCES `truyum`.`user` (`us_id`)
+    REFERENCES `lch_marketplace`.`user` (`us_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_role_role1`
     FOREIGN KEY (`ur_ro_id`)
-    REFERENCES `truyum`.`role` (`ro_id`)
+    REFERENCES `lch_marketplace`.`role` (`ro_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
