@@ -1,39 +1,53 @@
 package com.cognizant.truyum.model;
 
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-
+@Entity
+@Table
 public class Cart {
-	
-	
-	private Set<MenuItem> menuItemList;
-	private double total;
 
-	public Cart(Set<MenuItem> menuItemList, double total) {
-		super();
-		this.menuItemList = menuItemList;
-		this.total = total;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ct_id")
+	private long id;
+
+	@ManyToOne
+	@JoinColumn(name = "ct_pr_id")
+	private MenuItem menuItem;
+
+	@ManyToOne
+	@JoinColumn(name = "ct_us_id")
+	private User user;
+
+	public long getId() {
+		return id;
 	}
 
-	public Set<MenuItem> getMenuItemList() {
-		return menuItemList;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public void setMenuItemList(Set<MenuItem> menuItemList) {
-		this.menuItemList = menuItemList;
+	public MenuItem getMenuItem() {
+		return menuItem;
 	}
 
-	public double getTotal() {
-		return total;
+	public void setMenuItem(MenuItem menuItem) {
+		this.menuItem = menuItem;
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
+	public User getUser() {
+		return user;
 	}
 
-	@Override
-	public String toString() {
-		return "Cart [menuItemList=" + menuItemList + ", total=" + total + "]";
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

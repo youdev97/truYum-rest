@@ -6,15 +6,22 @@ import org.springframework.stereotype.Service;
 import com.cognizant.truyum.dao.CartDao;
 import com.cognizant.truyum.dao.CartEmptyException;
 import com.cognizant.truyum.model.Cart;
+import com.cognizant.truyum.model.MenuItem;
+import com.cognizant.truyum.model.User;
+import com.cognizant.truyum.repository.MenuItemRepository;
+import com.cognizant.truyum.repository.UserRepository;
 
 @Service
 public class CartService {
 
 	@Autowired
-	private CartDao cartDao;
+	UserRepository userRepository;
+	
+	@Autowired
+	MenuItemRepository menuItemRepository;
 
 	public Cart getAllCartItems(long userId) throws CartEmptyException {
-		return cartDao.getAllCartItems(userId);
+		User user = userRepository.getMenuItems();
 	}
 
 	public void setCartDao(CartDao cartDao) {
@@ -22,7 +29,9 @@ public class CartService {
 	}
 
 	public void addCartitem(long userId, long menuItemId) {
-		cartDao.addCartItem(userId, menuItemId);
+		User user = userRepository.getOne(userId);
+		MenuItem menuItem = menuItemRepository.getOne(menuItemId);
+		user.getCarts()
 	}
 
 	public void removeCartItem(long userId, long menuItemId) {

@@ -1,27 +1,27 @@
 package com.cognizant.truyum.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class User {
+public class Role {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "us_id")
+	@Column(name = "ro_id")
 	private long id;
 
-	@Column(name = "us_name")
+	@Column(name = "ro_name")
 	private String name;
 
-	
+	public Role(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 	public long getId() {
 		return id;
 	}

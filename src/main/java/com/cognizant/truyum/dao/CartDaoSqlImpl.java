@@ -53,7 +53,7 @@ public class CartDaoSqlImpl implements CartDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Cart cart = new Cart(new HashSet<MenuItem>(), 0);
-		Set<MenuItem> menuItems = cart.getMenuItemList();
+		Set<MenuItem> menuItems = cart.getMenuItems();
 		String sql = "SELECT m.* FROM cart c JOIN menu_item m on c.ct_pr_id=m.me_id WHERE c.ct_us_id=?";
 		try {
 			conn = dataSource.getConnection();

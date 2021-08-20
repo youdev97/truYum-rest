@@ -27,11 +27,11 @@ public class CartDaoCollectionImpl implements CartDao {
 		MenuItem menuItem = menuItemDao.getMenuItem(menuItemId);
 
 		if (userCarts.containsKey(userId)) {
-			Set<MenuItem> menuItemList = userCarts.get(userId).getMenuItemList();
-			menuItemList.add(menuItem);
+			Set<MenuItem> menuItems = userCarts.get(userId).getMenuItems();
+			menuItems.add(menuItem);
 		} else {
 			Cart cart = new Cart(new HashSet<MenuItem>(), 0.0);
-			cart.getMenuItemList().add(menuItem);
+			cart.getMenuItems().add(menuItem);
 			userCarts.put(userId, cart);
 		}
 	}
@@ -39,12 +39,12 @@ public class CartDaoCollectionImpl implements CartDao {
 	@Override
 	public Cart getAllCartItems(long userId) throws CartEmptyException {
 		if (userCarts.containsKey(userId)) {
-			Set<MenuItem> menuItemList = userCarts.get(userId).getMenuItemList();
-			if (menuItemList.isEmpty()) {
+			Set<MenuItem> menuItems = userCarts.get(userId).getMenuItems();
+			if (menuItems.isEmpty()) {
 				throw (new CartEmptyException());
 			} else {
 				double total = 0.0;
-				for(MenuItem menuItem : menuItemList) {
+				for(MenuItem menuItem : menuItems) {
 					total += menuItem.getPrice();
 				}
 				userCarts.get(userId).setTotal(total);
@@ -58,10 +58,10 @@ public class CartDaoCollectionImpl implements CartDao {
 
 	@Override
 	public void removeCartItem(long userId, long menuItemId) {
-		Set<MenuItem> menuItemList = userCarts.get(userId).getMenuItemList();
-		for (MenuItem menuItem : menuItemList) {
+		Set<MenuItem> menuItems = userCarts.get(userId).getMenuItems();
+		for (MenuItem menuItem : menuItems) {
 			if (menuItem.getId() == menuItemId) {
-				menuItemList.remove(menuItem);
+				menuItems.remove(menuItem);
 				break;
 			}
 		}

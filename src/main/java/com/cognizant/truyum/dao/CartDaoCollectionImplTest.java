@@ -69,10 +69,10 @@ public class CartDaoCollectionImplTest {
 	public static void testGetAllCartItems() {
 		CartDao cartDao = new CartDaoCollectionImpl();
 		try {
-			Set<MenuItem> menuItemList = cartDao.getAllCartItems(1).getMenuItemList();
+			Set<MenuItem> menuItems = cartDao.getAllCartItems(1).getMenuItems();
 			System.out.println("User Id 1 content is displayed");
 			System.out.println("****************************************");
-			for (MenuItem menuItem : menuItemList) {
+			for (MenuItem menuItem : menuItems) {
 				System.out.println(menuItem);
 			}
 		} catch (CartEmptyException e) {

@@ -1,41 +1,40 @@
 package com.cognizant.truyum.service;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cognizant.truyum.dao.MenuItemDao;
 import com.cognizant.truyum.model.MenuItem;
+import com.cognizant.truyum.repository.MenuItemRepository;
 
 @Service
 public class MenuItemService {
-	
+
 	@Autowired
-	MenuItemDao menuItemDao;
+	MenuItemRepository menuItemRepository;
 
+	@Transactional
 	public List<MenuItem> getMenuItemListAdmin() {
-		return menuItemDao.getMenuItemListAdmin();
-	}
-	
-	public List<MenuItem> getMenuItemListCustomer() {
-		return menuItemDao.getMenuItemListCustomer();
-	}
-	
-	public MenuItem getMenuItem(long menuItemId) {
-		return menuItemDao.getMenuItem(menuItemId);
-	}
-	
-	public void modifyMenuItem(MenuItem menuItem) {
-		menuItemDao.modifyMenuItem(menuItem);
-	}
-	
-	public MenuItemDao getMenuItemDao() {
-		return menuItemDao;
+		return menuItemRepository.findAll();
 	}
 
-	public void setMenuItemDao(MenuItemDao menuItemDao) {
-		this.menuItemDao = menuItemDao;
+	@Transactional
+	public List<MenuItem> getMenuItemListCustomer() {
+		return menuItemRepository.findByActiveTrueAndDateOfLaunchLessThanEqual(new Date());
 	}
-	
+
+	@Transactional
+	public MenuItem getMenuItem(long menuItemId) {
+		return menuItemRepository.getOne(menuItemId);
+	}
+
+	@Transactional
+	public void modifyMenuItem(MenuItem menuItem) {
+		menuItemRepository.save(menuItem);
+	}
+
 }
