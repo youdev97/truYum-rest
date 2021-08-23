@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -27,13 +28,13 @@ public class MenuItem {
 	private long id;
 
 	@NotBlank(message = "Name is required")
-	@Pattern(regexp = "/^[a-zA-Z][a-zA-Z\\s]{2,65}$/", message ="Name should have 2 to 65 characters")
+	@Pattern(regexp = "^[a-zA-Z][a-zA-Z\\s]{2,65}$", message ="Name should have 2 to 65 characters")
 	@Column(name="me_name")
 	private String name;
 
-	@NotNull(message = "Price is required")
-	@Digits(integer = 10, fraction = 2, message="price has to be a number")
 	@Column(name="me_price")
+	@NotNull
+    @Digits(integer=5, fraction=2, message = "price should respect the following format xxxxx.xx")
 	private float price;
 
 	@Column(name="me_active")

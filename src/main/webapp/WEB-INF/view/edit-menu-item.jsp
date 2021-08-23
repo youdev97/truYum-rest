@@ -16,13 +16,13 @@
 		<span class="header-title">truYum</span> <img class="header-logo"
 			src="/resources/images/truyum-logo-light.png" alt="truYum Logo"></img>
 		<nav>
-			<a class="nav-link" href="./menu-item-list-admin.html">Menu</a>
+			<a class="nav-link" href="/show-menu-list-admin">Menu</a>
 		</nav>
 	</header>
 	<article>
 		<h2 class="article-heading">Edit Menu Item</h2>
-		<sf:form name="editMenuItemForm" onsubmit="return validateForm();"
-			action="edit-menu-item" modelAttribute="menuItemBean" method="POST">
+		<sf:form name="editMenuItemForm" action="edit-menu-item" modelAttribute="menuItemBean" method="POST">
+			<sf:input path="id" type="number" style="display:none"/>
 			<table class="form-table">
 				<tr>
 					<td colspan="4">
@@ -36,7 +36,7 @@
 					<td>
 						<label class="form-item" for="field-price">Price (Rs.)</label> 
 						<sf:input path="price" class="form-input form-input-right"
-							type="number" step="1.00" name="price" id="field-price"/>
+							type="number" name="price" id="field-price" step="any" required="true"/>
 						<sf:errors path="price" />
 					</td>
 					<th>
