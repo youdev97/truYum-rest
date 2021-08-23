@@ -12,7 +12,7 @@
 			<img class="header-logo" src="/resources/images/truyum-logo-light.png" alt="truYum Logo"></img>
 			<nav>
 				<a class="nav-link" href="/show-menu-list-customer">Menu</a>
-				<a class="nav-link" href="/show-cart">Cart</a>
+				<a class="nav-link" href="/show-cart?userId=1">Cart</a>
 			</nav>
 		</header>
 		<article>
@@ -27,13 +27,13 @@
 					<th class="col-right">Price</th>
 					<th></th>
 				</tr>
-				<c:forEach items="${cart.menuItemList}" var="menuItem">
+				<c:forEach items="${cart.menuItems}" var="menuItem">
 					<tr>
 					<td class="col-left">${menuItem.name}</td>
 					<td class="col-left">${menuItem.freeDelivery}</td>
-					<td class="col-right">Rs. ${menuItem.price} }</td>
+					<td class="col-right">Rs. ${menuItem.price}</td>
 					<td>
-						<a class="action-link" href="/remove-cart?menuItemId=${menuItem.id}?userId=1">Delete</a>
+						<a class="action-link" href="/remove-cart?menuItemId=${menuItem.id}&&userId=1">Delete</a>
 					</td>
 					</tr>
 				</c:forEach>

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,9 @@ public class User {
 	@Column(name = "us_name")
 	private String name;
 
-	
+	@OneToMany(mappedBy = "user")
+	private Set<Cart> cart;
+
 	public long getId() {
 		return id;
 	}
@@ -36,6 +39,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Cart> getCart() {
+		return cart;
+	}
+
+	public void setCart(Set<Cart> cart) {
+		this.cart = cart;
 	}
 
 }

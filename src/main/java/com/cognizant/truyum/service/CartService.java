@@ -1,40 +1,68 @@
 package com.cognizant.truyum.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cognizant.truyum.dao.CartDao;
-import com.cognizant.truyum.dao.CartEmptyException;
+import com.cognizant.truyum.exception.CartEmptyException;
 import com.cognizant.truyum.model.Cart;
 import com.cognizant.truyum.model.MenuItem;
 import com.cognizant.truyum.model.User;
-import com.cognizant.truyum.repository.MenuItemRepository;
-import com.cognizant.truyum.repository.UserRepository;
+import com.cognizant.truyum.repository.CartRepository;
 
 @Service
 public class CartService {
 
 	@Autowired
-	UserRepository userRepository;
-	
+	CartRepository cartRepository;
+
 	@Autowired
-	MenuItemRepository menuItemRepository;
+	UserService userService;
 
-	public Cart getAllCartItems(long userId) throws CartEmptyException {
-		User user = userRepository.getMenuItems();
+	@Autowired
+	MenuItemService menuItemService;
+
+	@Transactional
+	public Set<MenuItem> getAllCartItems(long userId) throws CartEmptyException {
+		User user = userService.getUser(userId);
+		if (user.getCart().isEmpty()) {
+			throw new CartEmptyException();
+		} else {
+			Set<MenuItem> cartItemList = new HashSet<>();
+			for (Cart cart : user.getCart()) {
+				cartItemList.add(cart.getMenuItem());
+			}
+			return cartItemList;
+		}
 	}
 
-	public void setCartDao(CartDao cartDao) {
-		this.cartDao = cartDao;
+	@Transactional
+	public double getCartTotal(long userId) {
+		return userService.getCartTotal(userId);
 	}
 
-	public void addCartitem(long userId, long menuItemId) {
-		User user = userRepository.getOne(userId);
-		MenuItem menuItem = menuItemRepository.getOne(menuItemId);
-		user.getCarts()
+	@Transactional
+	public void addCartItem(long userId, long menuItemId) {
+		User user = userService.getUser(userId);
+		MenuItem menuItem = menuItemService.getMenuItem(menuItemId);
+		Cart cart = new Cart();
+		cart.setUser(user);
+		cart.setMenuItem(menuItem);
+		cartRepository.save(cart);
 	}
 
+	@Transactional
 	public void removeCartItem(long userId, long menuItemId) {
-		cartDao.removeCartItem(userId, menuItemId);
+		User user = userService.getUser(userId);
+		for (Cart cart : user.getCart()) {
+			if (cart.getMenuItem().getId() == menuItemId) {
+				cartRepository.delete(cart);
+				break;
+			}
+		}
 	}
 }

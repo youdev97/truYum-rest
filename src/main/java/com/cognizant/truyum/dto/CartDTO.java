@@ -15,6 +15,9 @@ public class CartDTO {
 		this.menuItems = menuItems;
 		this.total = total;
 	}
+	
+	public CartDTO() {
+	}
 
 	public long getId() {
 		return id;

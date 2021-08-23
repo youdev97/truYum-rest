@@ -29,7 +29,7 @@ public class MenuItemService {
 
 	@Transactional
 	public MenuItem getMenuItem(long menuItemId) {
-		return menuItemRepository.getOne(menuItemId);
+		return menuItemRepository.findById(menuItemId).orElse(null);
 	}
 
 	@Transactional

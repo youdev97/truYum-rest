@@ -1,4 +1,4 @@
-package com.cognizant.truyum.dao;
+package com.cognizant.truyum.exception;
 
 public class CartEmptyException extends Exception {
 
