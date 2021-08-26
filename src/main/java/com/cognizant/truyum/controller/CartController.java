@@ -43,12 +43,12 @@ public class CartController {
 
 	@GetMapping(value = "/remove-cart")
 	public String removeCart(@RequestParam("menuItemId") long menuItemId, @RequestParam("userId") long userId,
-			ModelMap model) {
+			RedirectAttributes redirectAttributes) {
 		log.info("Start");
 		cartService.removeCartItem(userId, menuItemId);
-		model.addAttribute("removeCartItemStatus", true);
+		redirectAttributes.addFlashAttribute("removeCartItemStatus", true);
 		log.info("End");
-		return "cart";
+		return "redirect:/show-cart?userId="+userId;
 	}
 
 	CartDTO getAllCartItems(long userId) {

@@ -30,7 +30,7 @@
 				<c:forEach items="${cart.menuItems}" var="menuItem">
 					<tr>
 					<td class="col-left">${menuItem.name}</td>
-					<td class="col-left">${menuItem.freeDelivery}</td>
+					<td class="col-left">${menuItem.freeDelivery ? 'Yes': 'No'}</td>
 					<td class="col-right">Rs. ${menuItem.price}</td>
 					<td>
 						<a class="action-link" href="/remove-cart?menuItemId=${menuItem.id}&&userId=1">Delete</a>
