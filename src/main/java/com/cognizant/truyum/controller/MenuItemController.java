@@ -5,8 +5,6 @@ import java.util.List;
 import javax.transaction.SystemException;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,50 +17,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cognizant.truyum.model.MenuItem;
 import com.cognizant.truyum.service.MenuItemService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class MenuItemController {
 
 	@Autowired
 	MenuItemService menuItemService;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MenuItemController.class);
-
+	
 	@GetMapping(value = "/show-menu-list-admin")
 	public String showMenuItemListAdmin(ModelMap model) throws SystemException {
-		LOGGER.info("Start");
+		log.info("Start");
 		List<MenuItem> menuItemList = menuItemService.getMenuItemListAdmin();
 		model.addAttribute("menuItemList", menuItemList);
-		LOGGER.info("End");
+		log.info("End");
 		return "menu-item-list-admin";
 	}
 	
 	@GetMapping(value = "/show-menu-list-customer")
 	public String showMenuItemListCustomer(ModelMap model) throws SystemException {
-		LOGGER.info("Start");
+		log.info("Start");
 		List<MenuItem> menuItemList = menuItemService.getMenuItemListCustomer();
 		model.addAttribute("menuItemList", menuItemList);
-		LOGGER.info("End");
+		log.info("End");
 		return "menu-item-list-customer";
 	}
 
 	@GetMapping(value = "/show-edit-menu-item")
 	public String showEditMenuItem(@RequestParam("menuItemId") long menuItemId, ModelMap model) {
-		LOGGER.info("Start");
+		log.info("Start");
 		MenuItem menuItem = menuItemService.getMenuItem(menuItemId);
 		model.addAttribute("menuItemBean", menuItem);
-		LOGGER.info("End");
+		log.info("End");
 		return "edit-menu-item";
 
 	}
 
 	@PostMapping(value = "/edit-menu-item")
 	public String editMenuItem(@ModelAttribute("menuItemBean") @Valid MenuItem menuItem, BindingResult bindingResult) {
-		LOGGER.info("Start");
+		log.info("Start");
 		if (bindingResult.hasErrors()) {
 			return "edit-menu-item";			
 		} else {
 			menuItemService.modifyMenuItem(menuItem);
-			LOGGER.info("End");
+			log.info("End");
 			return "edit-menu-item-status";
 		}
 	}

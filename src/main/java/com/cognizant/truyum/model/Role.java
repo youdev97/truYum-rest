@@ -5,8 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table
+@Getter
+@Setter
+@AllArgsConstructor
 public class Role {
 
 	@Id
@@ -15,27 +22,5 @@ public class Role {
 
 	@Column(name = "ro_name")
 	private String name;
-
-	public Role(long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }

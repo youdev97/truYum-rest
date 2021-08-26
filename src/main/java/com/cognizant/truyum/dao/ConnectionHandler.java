@@ -1,7 +1,7 @@
 package com.cognizant.truyum.dao;
 
-public class ConnectionHandler {
-	
+//public class ConnectionHandler {
+//	
 //	public static Connection getConnection() {
 //		Connection con = null;
 //		Properties props = new Properties();
@@ -22,5 +22,5 @@ public class ConnectionHandler {
 //		}
 //		return con;
 //	}
-
-}
+//
+//}

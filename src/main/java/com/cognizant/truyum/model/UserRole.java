@@ -7,8 +7,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table
+@Getter
+@Setter
+@AllArgsConstructor
 public class UserRole {
 
 	@Id
@@ -22,36 +29,5 @@ public class UserRole {
 	@ManyToOne
 	@JoinColumn(name = "ur_ro_id")
 	private Role role;
-
-	public UserRole(long urId, User user, Role role) {
-		super();
-		this.urId = urId;
-		this.user = user;
-		this.role = role;
-	}
-
-	public long getUrId() {
-		return urId;
-	}
-
-	public void setUrId(long urId) {
-		this.urId = urId;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 
 }
