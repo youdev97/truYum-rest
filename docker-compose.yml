@@ -20,7 +20,7 @@ services:
 
   truyum-rest-service:
 
-    image: truyum-rest-service
+    image: youdev246/truyum-rest
 
     build: ./
 
