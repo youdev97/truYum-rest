@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5ae9371b-897b-44d9-a396-949f4d6f331f",
+		"_postman_id": "fcd6ad1f-5d6d-49bd-a119-4b854fee2e54",
 		"name": "truyum-rest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -52,6 +52,34 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"name\": \"Durum\",\r\n    \"price\": 99.0,\r\n    \"active\": true,\r\n    \"dateOfLaunch\": \"2021-09-08\",\r\n    \"category\": \"Main Course\",\r\n    \"freeDelivery\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/menu-items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu-items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Menu Item",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 4,\r\n    \"name\": \"Durum\",\r\n    \"price\": 129.0,\r\n    \"active\": true,\r\n    \"dateOfLaunch\": \"2021-09-08\",\r\n    \"category\": \"Main Course\",\r\n    \"freeDelivery\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

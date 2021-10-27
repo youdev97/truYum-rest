@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cognizant.truyum.exception.TruyumNotFoundException;
 import com.cognizant.truyum.model.Cart;
 import com.cognizant.truyum.model.User;
 import com.cognizant.truyum.repository.UserRepository;
@@ -20,8 +21,8 @@ public class UserService {
 	
 	
 	@Transactional
-	public User getUser(long id) {
-		return userRepository.findById(id).orElse(null);
+	public User getUser(long id) throws TruyumNotFoundException {
+		return userRepository.findById(id).orElseThrow(() -> new TruyumNotFoundException("User " + id + " doesn't exist"));
 	}
 	
 	@Transactional
